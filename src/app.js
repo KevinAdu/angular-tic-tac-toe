@@ -28,11 +28,19 @@ module.controller('gridController', ['$scope', 'boardModel', 'playerModel', func
 	var players = $scope.players = playerModel;
 	var currentTurn = 1;
 	var currentPlayer;
+	var gameOver = false;
 
 	$scope.setPiece = function(index) {
-		currentPlayer = players[currentTurn%2]
-		board[index] = currentPlayer.symbol;
-		console.log(checkIfWinner())
+		if ((board[index] == '') && !gameOver) {
+			currentPlayer = players[currentTurn%2]
+			board[index] = currentPlayer.symbol;
+		
+			if(checkIfWinner()) {
+				gameOver = true;
+			}	
+		}
+				
+
 		currentTurn += 1;
 	}
 
