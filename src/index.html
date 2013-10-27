@@ -3,19 +3,14 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="../css/main.css" media="screen" />
 		<script type="text/javascript" src="../libs/angular.js"></script>
+		<script type="text/javascript" src="app.js"></script>
 	</head>
 	<body>
-		<div ng-app>
-			<div class="grid">
-				<div class="grid-square"></div>
-				<div class="grid-square"></div>
-				<div class="grid-square"></div>
-				<div class="grid-square"></div>
-				<div class="grid-square"></div>
-				<div class="grid-square"></div>
-				<div class="grid-square"></div>
-				<div class="grid-square"></div>
-				<div class="grid-square"></div>
+		<div ng-app="app">
+			<div class="grid" ng-controller="gridController">
+				<div ng-repeat="item in board" class="grid-square" ng-click="setPiece($index)">
+					{{item}}
+				</div>
 			</div>
 		</div>
 	</body>

@@ -1,12 +1,14 @@
 /* line 1, ../scss/main.scss */
 .grid {
   background-color: blue;
-  height: 300px;
-  width: 300px;
+  height: 320px;
+  width: 320px;
 }
 /* line 6, ../scss/main.scss */
 .grid .grid-square {
   border: 1px solid black;
   background-color: red;
   display: inline-block;
+  height: 100px;
+  width: 100px;
 }
