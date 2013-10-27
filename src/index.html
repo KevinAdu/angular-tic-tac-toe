@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<div ng-app="app">
-			<div class="grid" ng-controller="gridController">
+			<div class="container" ng-controller="gridController">
 				<div ng-repeat="item in board" class="grid-square" ng-click="setPiece($index)">
 					{{item}}
 				</div>

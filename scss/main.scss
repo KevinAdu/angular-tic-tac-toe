@@ -1,7 +1,6 @@
-.grid {
-	background-color:blue;
-	height:320px;
-	width:320px;
+.container {
+	height:306px;
+	width:306px;
 
 	.grid-square {
 		border:1px solid black;
@@ -9,6 +8,10 @@
 		display:inline-block;
 		height:100px;
 		width:100px;
+		text-align: center;
+		font-size: 50px;
+		line-height: 100px;
+		vertical-align: middle;
 	}
 }
 
