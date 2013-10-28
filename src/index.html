@@ -7,6 +7,9 @@
 	</head>
 	<body ng-app="app">
 		<section ng-controller="gridController" class="container">
+			<h2 class="player-info" ng-repeat="player in players">
+				Player {{$index + 1}}: {{player.name}}
+			</h2>
 			<div class="board" >
 				<div ng-repeat="item in board" class="grid-square" ng-click="setPiece($index)">
 					{{item}}
