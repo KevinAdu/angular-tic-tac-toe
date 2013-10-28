@@ -1,19 +1,14 @@
 var module = angular.module('app', []);
 
-module.factory('boardModel', function() {
-	var model = ['', '', '', '', '', '', '' ,'' ,''];
-	return model;
-});
-
 module.factory('playerModel', function() {
 	var model =
 		[
 			{
-				'name':'',
+				'name':'Kevin',
 				'symbol':'X',
 			},
 			{
-				'name':'',
+				'name':'Steve',
 				'symbol':'O',
 			}
 		]
@@ -23,8 +18,8 @@ module.factory('playerModel', function() {
 
 
 //Change to boardController
-module.controller('gridController', ['$scope', 'boardModel', 'playerModel', function($scope, boardModel, playerModel) {
-	var board = $scope.board = boardModel;
+module.controller('gridController', ['$scope', 'playerModel', function($scope, playerModel) {
+	var board = $scope.board = ['', '', '', '', '', '', '' ,'' ,''];
 	var players = $scope.players = playerModel;
 	var currentTurn = 1;
 	var currentPlayer;
@@ -32,19 +27,18 @@ module.controller('gridController', ['$scope', 'boardModel', 'playerModel', func
 
 	$scope.setPiece = function(index) {
 		if ((board[index] == '') && !gameOver) {
-			currentPlayer = players[currentTurn%2]
+			currentPlayer = players[currentTurn % 2]
 			board[index] = currentPlayer.symbol;
 		
-			if(checkIfWinner()) {
+			if(_checkIfWinner()) {
 				gameOver = true;
 			}	
 		}
-				
 
 		currentTurn += 1;
 	}
 
-	var checkIfWinner = function() {
+	var _checkIfWinner = function() {
 		var winningRegex = new RegExp(currentPlayer.symbol + "{3}");
 		return (board[0] + board[1] + board[2]).search(winningRegex) != -1
             || (board[3] + board[4] + board[5]).search(winningRegex) != -1
