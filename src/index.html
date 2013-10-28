@@ -7,9 +7,9 @@
 	</head>
 	<body ng-app="app">
 		<player-form></player-form>
-		<section ng-controller="gridController" class="container" ng-show="readyToPlay">
+		<section ng-controller="boardController" class="container" ng-show="readyToPlay">
 			<h1 class="player-info" ng-repeat="player in players.getAsArray()">
-				Player {{$index + 1}}: {{player.getName()}}
+				Player {{$index + 1}}: {{player.name}}
 			</h1>
 			<div class="board" >
 				<div ng-repeat="item in board" class="grid-square" ng-click="setPiece($index)">
@@ -17,7 +17,7 @@
 				</div>
 				<h2>Turn Count: {{currentTurn}}</h2>
 				<div  ng-show="gameOver" class="game-over-details">
-					<h1>{{currentPlayer.getName()}} wins!</h1>
+					<h1>{{players.getCurrentPlayer(currentTurn).name}} wins!</h1>
 					<button ng-click="reset()">Play Again?</button>					
 				</div>
 			</div>
