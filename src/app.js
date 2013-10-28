@@ -15,29 +15,29 @@ module.factory('playerModel', function() {
 module.service('playerCollection', 
 	function(currentTurn) {
 		return {
-			players : [],
+			_players : [],
 			add : function(player) {
-				this.players.push(player);
+				this._players.push(player);
 			},
-			get : function(index) {
-				return this.players[index];
+			getByIndex : function(index) {
+				return this._players[index];
 			},
 			size : function() {
-				return this.players.length;
+				return this._players.length;
 			},
-			getAsArray : function() {
-				return this.players;
+			getPlayers : function() {
+				return this._players;
 			},
 			areNamesSet : function() {
-				return this._pluck('name').indexOf('') != -1
+				return this._pluck('name').indexOf('') == -1
 			},
 			getCurrentPlayer : function (turn) {
-				return this.players[turn % 2];
+				return this._players[turn % 2];
 			},		
 			_pluck : function (field) {
 				var arr = [];
-				for (var i = 0; i < this.players.length; i ++) {
-					arr.push(this.players[i][field]);
+				for (var i = 0; i < this._players.length; i ++) {
+					arr.push(this._players[i][field]);
 				}
 
 				return arr;
@@ -58,7 +58,7 @@ module.controller('playerController', ['$scope', 'playerModel', 'playerCollectio
 		$scope.playerIndex = 0;
 
 		$scope.submitName = function() {
-			if(players.areNamesSet()) {
+			if(!players.areNamesSet()) {
 				$scope.playerIndex += 1; 
 			} else {
 				$scope.readyToPlay = true;
@@ -74,10 +74,10 @@ module.directive('playerForm',
 			restrict:'E',
 			controller:'playerController',
 			template: "<section ng-hide=\"readyToPlay\">\
-						<h1>Player {{playerIndex + 1}}</h1>\
-						<h1>Enter your name</h1>\
-						<input type=\"text\" ng-model=\"players.get(playerIndex).name\"/>\
-						<button ng-click=\"submitName()\">Submit</button>\
+							<h1>Player {{playerIndex + 1}}</h1>\
+							<h1>Enter your name</h1>\
+							<input type=\"text\" ng-model=\"players.getByIndex(playerIndex).name\"/>\
+							<button ng-click=\"submitName()\">Submit</button>\
 						</section>"
 		}
 	

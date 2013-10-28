@@ -8,7 +8,7 @@
 	<body ng-app="app">
 		<player-form></player-form>
 		<section ng-controller="boardController" class="container" ng-show="readyToPlay">
-			<h1 class="player-info" ng-repeat="player in players.getAsArray()">
+			<h1 class="player-info" ng-repeat="player in players.getPlayers()">
 				Player {{$index + 1}}: {{player.name}}
 			</h1>
 			<div class="board" >
