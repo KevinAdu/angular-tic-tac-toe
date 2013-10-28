@@ -1,30 +1,54 @@
 var module = angular.module('app', []);
 
 module.factory('playerModel', function() {
-	var model =
-		[
-			{
-				'name':'',
-				'symbol':'X',
-			},
-			{
-				'name':'',
-				'symbol':'O',
-			}
-		]
+	var player = function(symbol) {
+		this.name = '';
+		this.symbol = symbol;
 
-		return model;
+		this.getSymbol = function() {
+			return this.symbol;
+		}
+
+		this.getName = function() {
+			return this.name;
+		}
+	}
+
+	return player;
 });
 
-module.controller('playerController', ['$scope', 'playerModel', 'readyToPlay', 
-	function($scope, playerModel, readyToPlay) {
-		var players = $scope.players = playerModel;
+module.service('playerCollection', function() {
+	return {
+		players : [],
+		add : function(player) {
+			this.players.push(player);
+		},
+		get : function(index) {
+			return this.players[index];
+		},
+		size : function() {
+			return this.players.length;
+		},
+		getAsArray : function() {
+			return this.players;
+		}
+	}
+});
+
+module.controller('playerController', ['$scope', 'playerModel', 'playerCollection', 'readyToPlay', 
+	function($scope, playerModel, playerCollection, readyToPlay) {
+		var playerOne = new playerModel('X');
+		var playerTwo = new playerModel('O');
+		var players = $scope.players = playerCollection;
+		
+		players.add(playerOne);
+		players.add(playerTwo);
 		
 		$scope.readyToPlay = readyToPlay;
 		$scope.playerIndex = 0;
 
 		$scope.submitName = function() {
-			if( $scope.playerIndex < playerModel.length - 1) {
+			if( $scope.playerIndex < players.size() - 1) {
 				$scope.playerIndex += 1; 
 			} else {
 				$scope.readyToPlay = true;
@@ -43,7 +67,7 @@ module.directive('playerForm', function() {
 		template: "<section ng-hide=\"readyToPlay\">\
 					<h1>Player {{playerIndex + 1}}</h1>\
 					<h1>Enter your name</h1>\
-					<input type=\"text\" ng-model=\"players[playerIndex].name\"/>\
+					<input type=\"text\" ng-model=\"players.get(playerIndex).name\"/>\
 					<button ng-click=\"submitName()\">Submit</button>\
 					</section>"
 	}
@@ -52,9 +76,9 @@ module.directive('playerForm', function() {
 
 
 //Change to boardController
-module.controller('gridController', ['$scope', 'playerModel', function($scope, playerModel) {
+module.controller('gridController', ['$scope', 'playerCollection', function($scope, playerCollection) {
 	$scope.board = ['', '', '', '', '', '', '' ,'' ,''];
-	$scope.players = playerModel;
+	$scope.players = playerCollection;
 	$scope.currentPlayer;
 	$scope.gameOver = false;
 	$scope.currentTurn = 1;
@@ -62,7 +86,7 @@ module.controller('gridController', ['$scope', 'playerModel', function($scope, p
 	$scope.setPiece = function(index) {
 		
 		if (($scope.board[index] == '') && !$scope.gameOver) {
-			$scope.currentPlayer = $scope.players[$scope.currentTurn % 2];
+			$scope.currentPlayer = $scope.players.get($scope.currentTurn % 2);
 			$scope.board[index] = $scope.currentPlayer.symbol;
 			
 			if(_checkIfWinner()) {
