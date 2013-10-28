@@ -53,18 +53,17 @@ module.directive('playerForm', function() {
 
 //Change to boardController
 module.controller('gridController', ['$scope', 'playerModel', function($scope, playerModel) {
-	var board = $scope.board = ['', '', '', '', '', '', '' ,'' ,''];
-	var players = $scope.players = playerModel;
-
+	$scope.board = ['', '', '', '', '', '', '' ,'' ,''];
+	$scope.players = playerModel;
 	$scope.currentPlayer;
 	$scope.gameOver = false;
 	$scope.currentTurn = 1;
 
 	$scope.setPiece = function(index) {
 		
-		if ((board[index] == '') && !$scope.gameOver) {
-			$scope.currentPlayer = players[$scope.currentTurn % 2];
-			board[index] = $scope.currentPlayer.symbol;
+		if (($scope.board[index] == '') && !$scope.gameOver) {
+			$scope.currentPlayer = $scope.players[$scope.currentTurn % 2];
+			$scope.board[index] = $scope.currentPlayer.symbol;
 			
 			if(_checkIfWinner()) {
 				$scope.gameOver = true;
@@ -72,21 +71,24 @@ module.controller('gridController', ['$scope', 'playerModel', function($scope, p
 				$scope.currentTurn += 1;
 			}
 		}
+	}
 
-
-		
+	$scope.reset = function() {
+		$scope.currentTurn = 1;
+		$scope.board = ['', '', '', '', '', '', '' ,'' ,''];
+		$scope.gameOver = false;
 	}
 
 	var _checkIfWinner = function() {
 		var winningRegex = new RegExp($scope.currentPlayer.symbol + "{3}");
 
-		return (board[0] + board[1] + board[2]).search(winningRegex) != -1
-            || (board[3] + board[4] + board[5]).search(winningRegex) != -1
-            || (board[6] + board[7] + board[8]).search(winningRegex) != -1
-            || (board[0] + board[3] + board[6]).search(winningRegex) != -1
-            || (board[1] + board[4] + board[7]).search(winningRegex) != -1
-            || (board[2] + board[5] + board[8]).search(winningRegex) != -1
-            || (board[0] + board[4] + board[8]).search(winningRegex) != -1
-            || (board[2] + board[4] + board[6]).search(winningRegex) != -1;
+		return ($scope.board[0] + $scope.board[1] + $scope.board[2]).search(winningRegex) != -1
+            || ($scope.board[3] + $scope.board[4] + $scope.board[5]).search(winningRegex) != -1
+            || ($scope.board[6] + $scope.board[7] + $scope.board[8]).search(winningRegex) != -1
+            || ($scope.board[0] + $scope.board[3] + $scope.board[6]).search(winningRegex) != -1
+            || ($scope.board[1] + $scope.board[4] + $scope.board[7]).search(winningRegex) != -1
+            || ($scope.board[2] + $scope.board[5] + $scope.board[8]).search(winningRegex) != -1
+            || ($scope.board[0] + $scope.board[4] + $scope.board[8]).search(winningRegex) != -1
+            || ($scope.board[2] + $scope.board[4] + $scope.board[6]).search(winningRegex) != -1;
 	}
 }]);

@@ -16,7 +16,10 @@
 					{{item}}
 				</div>
 				<h2>Turn Count: {{currentTurn}}</h2>
-				<h1 ng-show="gameOver">{{currentPlayer.name}} wins!</h1>
+				<div  ng-show="gameOver" class="game-over-details">
+					<h1>{{currentPlayer.name}} wins!</h1>
+					<button ng-click="reset()">Play Again?</button>					
+				</div>
 			</div>
 		</section>
 	</body>
