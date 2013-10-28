@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en">
 	<head>
 		<link rel="stylesheet" type="text/css" href="../css/main.css" media="screen" />
 		<script type="text/javascript" src="../libs/angular.js"></script>
 		<script type="text/javascript" src="app.js"></script>
 	</head>
-	<body>
-		<div ng-app="app">
-			<div class="container" ng-controller="gridController">
+	<body ng-app="app">
+		<section ng-controller="gridController" class="container">
+			<div class="board" >
 				<div ng-repeat="item in board" class="grid-square" ng-click="setPiece($index)">
 					{{item}}
 				</div>
+				<span>Turn Count: {{currentTurn}}</span>
 			</div>
-		</div>
+		</section>
 	</body>
 </html>
