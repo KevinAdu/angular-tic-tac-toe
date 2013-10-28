@@ -55,24 +55,30 @@ module.directive('playerForm', function() {
 module.controller('gridController', ['$scope', 'playerModel', function($scope, playerModel) {
 	var board = $scope.board = ['', '', '', '', '', '', '' ,'' ,''];
 	var players = $scope.players = playerModel;
-	var currentPlayer;
-	var gameOver = false;
 
+	$scope.currentPlayer;
+	$scope.gameOver = false;
 	$scope.currentTurn = 1;
 
 	$scope.setPiece = function(index) {
 		
-		if ((board[index] == '') && !gameOver) {
-			currentPlayer = players[$scope.currentTurn % 2];
-			board[index] = currentPlayer.symbol;
-			gameOver = _checkIfWinner();
-			$scope.currentTurn += 1;
+		if ((board[index] == '') && !$scope.gameOver) {
+			$scope.currentPlayer = players[$scope.currentTurn % 2];
+			board[index] = $scope.currentPlayer.symbol;
+			
+			if(_checkIfWinner()) {
+				$scope.gameOver = true;
+			} else {
+				$scope.currentTurn += 1;
+			}
 		}
+
+
 		
 	}
 
 	var _checkIfWinner = function() {
-		var winningRegex = new RegExp(currentPlayer.symbol + "{3}");
+		var winningRegex = new RegExp($scope.currentPlayer.symbol + "{3}");
 
 		return (board[0] + board[1] + board[2]).search(winningRegex) != -1
             || (board[3] + board[4] + board[5]).search(winningRegex) != -1

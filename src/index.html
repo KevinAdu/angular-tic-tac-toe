@@ -8,14 +8,15 @@
 	<body ng-app="app">
 		<player-form></player-form>
 		<section ng-controller="gridController" class="container" ng-show="readyToPlay">
-			<h2 class="player-info" ng-repeat="player in players">
+			<h1 class="player-info" ng-repeat="player in players">
 				Player {{$index + 1}}: {{player.name}}
-			</h2>
+			</h1>
 			<div class="board" >
 				<div ng-repeat="item in board" class="grid-square" ng-click="setPiece($index)">
 					{{item}}
 				</div>
-				<span>Turn Count: {{currentTurn}}</span>
+				<h2>Turn Count: {{currentTurn}}</h2>
+				<h1 ng-show="gameOver">{{currentPlayer.name}} wins!</h1>
 			</div>
 		</section>
 	</body>
