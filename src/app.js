@@ -4,16 +4,50 @@ module.factory('playerModel', function() {
 	var model =
 		[
 			{
-				'name':'Kevin',
+				'name':'',
 				'symbol':'X',
 			},
 			{
-				'name':'Steve',
+				'name':'',
 				'symbol':'O',
 			}
 		]
 
 		return model;
+});
+
+module.controller('playerController', ['$scope', 'playerModel', 'readyToPlay', 
+	function($scope, playerModel, readyToPlay) {
+		var players = $scope.players = playerModel;
+		
+		$scope.readyToPlay = readyToPlay;
+		$scope.playerIndex = 0;
+
+		$scope.submitName = function() {
+			if( $scope.playerIndex < playerModel.length - 1) {
+				$scope.playerIndex += 1; 
+			} else {
+				$scope.readyToPlay = true;
+			}
+		}
+	}
+]);
+
+module.value('readyToPlay', false);
+
+
+module.directive('playerForm', function() {
+	return { 
+		restrict:'E',
+		controller:'playerController',
+		template: "<section ng-hide=\"readyToPlay\">\
+					<h1>Player {{playerIndex + 1}}</h1>\
+					<h1>Enter your name</h1>\
+					<input type=\"text\" ng-model=\"players[playerIndex].name\"/>\
+					<button ng-click=\"submitName()\">Submit</button>\
+					</section>"
+	}
+	
 });
 
 
@@ -25,7 +59,7 @@ module.controller('gridController', ['$scope', 'playerModel', function($scope, p
 	var gameOver = false;
 
 	$scope.currentTurn = 1;
-	
+
 	$scope.setPiece = function(index) {
 		
 		if ((board[index] == '') && !gameOver) {

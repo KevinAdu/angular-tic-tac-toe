@@ -6,7 +6,8 @@
 		<script type="text/javascript" src="app.js"></script>
 	</head>
 	<body ng-app="app">
-		<section ng-controller="gridController" class="container">
+		<player-form></player-form>
+		<section ng-controller="gridController" class="container" ng-show="readyToPlay">
 			<h2 class="player-info" ng-repeat="player in players">
 				Player {{$index + 1}}: {{player.name}}
 			</h2>
