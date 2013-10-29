@@ -29,15 +29,18 @@ module.service('playerCollection',
 				return this._players;
 			},
 			areNamesSet : function() {
-				return this._pluck('name').indexOf('') == -1
+				return (this._pluck('name').length === this._players.length);
 			},
 			getCurrentPlayer : function (turn) {
-				return this._players[turn % 2];
+				return this._players[(turn - 1) % 2];
 			},		
 			_pluck : function (field) {
 				var arr = [];
-				for (var i = 0; i < this._players.length; i ++) {
-					arr.push(this._players[i][field]);
+
+				for (var i = 0; i < this._players.length; i++) {
+					if (this._players[i][field] && this._players[i][field] != '' ) {
+						arr.push(this._players[i][field]);
+					}
 				}
 
 				return arr;
@@ -110,7 +113,7 @@ module.controller('boardController', ['$scope', 'playerCollection', 'currentTurn
 		}
 
 		var _checkIfWinner = function() {
-			var winningRegex = new RegExp($scope.players.getCurrentPlayer($scope.currentTurn) + "{3}");
+			var winningRegex = new RegExp($scope.players.getCurrentPlayer($scope.currentTurn).symbol + "{3}");
 
 			return ($scope.board[0] + $scope.board[1] + $scope.board[2]).search(winningRegex) != -1
 	            || ($scope.board[3] + $scope.board[4] + $scope.board[5]).search(winningRegex) != -1
