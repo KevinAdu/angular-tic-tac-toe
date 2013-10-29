@@ -1,12 +1,35 @@
 /* line 1, ../scss/main.scss */
-.board {
+.body-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+  margin-top: 50px;
+  background-color: #000080;
+  color: #FFF;
+  font-family: helvetica, arial;
+  padding: 30px;
+  border-radius: 3px;
+  text-align: middle;
+}
+/* line 13, ../scss/main.scss */
+.body-container button {
+  cursor: pointer;
+  color: #fff;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 3px;
+}
+/* line 21, ../scss/main.scss */
+.body-container .board {
   height: 306px;
   width: 306px;
+  border-radius: 3px;
 }
-/* line 5, ../scss/main.scss */
-.board .grid-square {
-  border: 1px solid black;
-  background-color: red;
+/* line 26, ../scss/main.scss */
+.body-container .board .grid-square {
+  border: 1px solid white;
+  background-color: #000080;
+  color: #fff;
   display: inline-block;
   height: 100px;
   width: 100px;

@@ -1,17 +1,42 @@
-.board {
-	height:306px;
-	width:306px;
+.body-container {
+	margin-left: auto;
+	margin-right: auto;
+	width:350px;
+	margin-top: 50px;
+	background-color:#000080;
+	color:#FFF;
+	font-family: helvetica, arial;
+	padding: 30px;
+	border-radius: 3px;
+	text-align:middle;
 
-	.grid-square {
-		border:1px solid black;
-		background-color:red;
-		display:inline-block;
-		height:100px;
-		width:100px;
-		text-align: center;
-		font-size: 50px;
-		line-height: 100px;
-		vertical-align: middle;
+	button {
+		cursor:pointer;
+		color:#fff;
+		background-color: transparent;
+		border: 2px solid #fff;
+		border-radius:3px;
 	}
+
+	.board {
+		height:306px;
+		width:306px;
+		border-radius:3px;
+
+		.grid-square {
+			border:1px solid #fff;
+			background-color:#000080;
+			color:#fff;
+			display:inline-block;
+			height:100px;
+			width:100px;
+			text-align: center;
+			font-size: 50px;
+			line-height: 100px;
+			vertical-align: middle;
+		}
+	}
+
 }
+
 
