@@ -93,12 +93,14 @@ module.controller('boardController', ['$scope', 'playerCollection', 'currentTurn
 		$scope.players = playerCollection;
 		$scope.gameOver = false;
 		$scope.currentTurn = currentTurn;
+		$scope.gameDrawn;
 
 		$scope.setPiece = function(index) {
 			if (($scope.board[index] == '') && !$scope.gameOver) {
 				$scope.board[index] = $scope.players.getCurrentPlayer($scope.currentTurn).symbol;
+				$scope.gameDrawn = ($scope.board.indexOf('') === -1);
 				
-				if(_checkIfWinner()) {
+				if(_checkIfWinner() || $scope.gameDrawn) {
 					$scope.gameOver = true;
 				} else {
 					$scope.currentTurn += 1;

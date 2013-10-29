@@ -19,7 +19,8 @@
 				</div>
 				<h2>Turn Count: {{currentTurn}}</h2>
 				<div  ng-show="gameOver" class="game-over-details">
-					<h1>{{players.getCurrentPlayer(currentTurn).name}} wins!</h1>
+					<h1 ng-hide="gameDrawn">{{players.getCurrentPlayer(currentTurn).name}} wins!</h1>
+					<h1 ng-show="gameDrawn">Tie game!</h1>
 					<button ng-click="reset()">Play Again?</button>					
 				</div>
 			</section>
