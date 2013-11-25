@@ -5,7 +5,7 @@ tic-tac-toe
 ## Summary 
 
 A simple Tic Tac Toe game built using HTML, CSS and Javascript.
-It was built also using the follwing frameworks:
+It was built also using the following frameworks:
  * AngularJS
  * SASS (Syntactically Awesome Stylesheets)
 
